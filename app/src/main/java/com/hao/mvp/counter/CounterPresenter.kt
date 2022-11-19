@@ -8,15 +8,16 @@ import kotlinx.coroutines.withContext
 /**
  *@date: 2022/11/19
  *@author: 锅得铁
- *# 功能实现
+ *@param view 注入view
+ *@param lifecycleScope 注入lifecycleScope以实现协程
+ *#功能实现
  */
 internal class CounterPresenter(
-    //注入view
     private val view: ICounterView,
-    //注入view lifecycle scope
     private val lifecycleScope: LifecycleCoroutineScope
 ) :
     ICounterPresenter {
+
     var number = 0
 
     init {

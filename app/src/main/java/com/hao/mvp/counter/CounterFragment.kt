@@ -12,7 +12,7 @@ import com.hao.mvp.databinding.FragmentCounterBinding
 /**
  *@date: 2022/11/19
  *@author: 锅得铁
- *# 页面实现抽象的CounterView
+ *#页面实现抽象的CounterView
  */
 internal class CounterFragment : Fragment(), ICounterView {
     private lateinit var mPresenter: ICounterPresenter
@@ -22,6 +22,7 @@ internal class CounterFragment : Fragment(), ICounterView {
             "Please wait...", true
         )
     }
+
     private val mBinding by lazy {
         FragmentCounterBinding.inflate(layoutInflater).apply {
             btnMinus.setOnClickListener {
@@ -33,21 +34,38 @@ internal class CounterFragment : Fragment(), ICounterView {
         }
     }
 
+    /**
+     * Add presenter,then presenter bind to view
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        lifecycle.addObserver(CounterPresenter(this, lifecycleScope))
+        mPresenter = CounterPresenter(this, lifecycleScope)
+        //Tip: add
+        lifecycle.addObserver(mPresenter)
         return mBinding.root
+    }
+
+    /**
+     * Remove presenter
+     */
+    override fun onDestroy() {
+        super.onDestroy()
+        lifecycle.removeObserver(mPresenter)
+    }
+
+    /**
+     * After what presenter init
+     * @see CounterPresenter init
+     */
+    override fun bind(presenter: ICounterPresenter) {
+        this.mPresenter = presenter
     }
 
     override fun result(number: Int) {
         mBinding.tvNumber.text = "$number"
-    }
-
-    override fun bind(presenter: ICounterPresenter) {
-        this.mPresenter = presenter
     }
 
 
@@ -58,4 +76,5 @@ internal class CounterFragment : Fragment(), ICounterView {
     override fun hideLoading() {
         dialog.dismiss()
     }
+
 }

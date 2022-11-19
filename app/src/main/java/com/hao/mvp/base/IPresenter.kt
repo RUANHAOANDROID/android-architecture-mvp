@@ -6,6 +6,5 @@ import androidx.lifecycle.DefaultLifecycleObserver
  *@author: 锅得铁
  *#
  */
-interface IPresenter<T> : DefaultLifecycleObserver {
+interface IPresenter<T> : DefaultLifecycleObserver
 
-}
