@@ -1,6 +1,5 @@
 # android-architecture-mvp
-android-architecture-mvp 
-
+android mvp sample
 ## Use kotlin
 
 ## Dependencies
