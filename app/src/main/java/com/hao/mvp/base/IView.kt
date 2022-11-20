@@ -9,5 +9,5 @@ interface IView<P> {
     /**
      * presenter 初始化时通过view.bin（this）注入
      */
-    fun bind(presenter: P)
+    var presenter: P
 }

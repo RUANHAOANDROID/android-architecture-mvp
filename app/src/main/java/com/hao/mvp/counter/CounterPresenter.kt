@@ -22,7 +22,7 @@ internal class CounterPresenter(
 
     init {
         //绑定 view <->presenter
-        view.bind(this)
+        view.presenter = this
     }
 
     override fun plus() {

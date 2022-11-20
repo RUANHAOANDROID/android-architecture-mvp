@@ -15,7 +15,9 @@ import com.hao.mvp.databinding.FragmentCounterBinding
  *#页面实现抽象的CounterView
  */
 internal class CounterFragment : Fragment(), ICounterView {
-    private lateinit var mPresenter: ICounterPresenter
+
+    override lateinit var presenter: ICounterPresenter
+    
     private val dialog: ProgressDialog by lazy {
         ProgressDialog.show(
             context, "Loading",
@@ -26,10 +28,10 @@ internal class CounterFragment : Fragment(), ICounterView {
     private val mBinding by lazy {
         FragmentCounterBinding.inflate(layoutInflater).apply {
             btnMinus.setOnClickListener {
-                mPresenter.minus()
+                presenter.minus()
             }
             btnPlus.setOnClickListener {
-                mPresenter.plus()
+                presenter.plus()
             }
         }
     }
@@ -42,9 +44,9 @@ internal class CounterFragment : Fragment(), ICounterView {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        mPresenter = CounterPresenter(this, lifecycleScope)
+        presenter = CounterPresenter(this, lifecycleScope)
         //Tip: add
-        lifecycle.addObserver(mPresenter)
+        lifecycle.addObserver(presenter)
         return mBinding.root
     }
 
@@ -53,15 +55,7 @@ internal class CounterFragment : Fragment(), ICounterView {
      */
     override fun onDestroy() {
         super.onDestroy()
-        lifecycle.removeObserver(mPresenter)
-    }
-
-    /**
-     * After what presenter init
-     * @see CounterPresenter init
-     */
-    override fun bind(presenter: ICounterPresenter) {
-        this.mPresenter = presenter
+        lifecycle.removeObserver(presenter)
     }
 
     override fun result(number: Int) {
