@@ -1,6 +1,7 @@
 # android-architecture-mvp
-android mvp sample
-Android MVP 示例
+Android mvp sample.Use kotlin,lifecycle and coroutines
+
+Android MVP 示例,基于 kotlin,lifecycle,coroutines 
 
 
 
